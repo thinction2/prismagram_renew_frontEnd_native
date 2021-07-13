@@ -1,17 +1,21 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Photo from "../../screens/Photo";
-import Feed from "../../screens/Feed";
-import Profile from "../../screens/Profile";
-import Search from "../../screens/Search";
-import Notifications from "../../screens/Notifications";
-import Me from "../../screens/Me";
+import Photo from "../screens/Photo";
+import Feed from "../screens/Feed";
+import Profile from "../screens/Profile";
+import Search from "../screens/Search";
+import Notifications from "../screens/Notifications";
+import Me from "../screens/Me";
+import { Image } from "react-native";
+import Likes from "../screens/Likes";
+import Comments from "../screens/Comments";
 
 const Stack = createStackNavigator();
 
 export default function StackNavFactory({ screenName }) {
   return (
     <Stack.Navigator
+      headerMode="screen"
       screenOptions={{
         headerTitleAlign: "center",
         headerBackTitleVisible: false,
@@ -23,7 +27,19 @@ export default function StackNavFactory({ screenName }) {
       }}
     >
       {screenName === "Feed" ? (
-        <Stack.Screen name={"Feed"} component={Feed} />
+        <Stack.Screen
+          name={"Feed"}
+          component={Feed}
+          options={{
+            headerTitle: () => (
+              <Image
+                style={{ maxHeight: 40, tintColor: "white" }}
+                resizeMode="contain"
+                source={require("../assets/logo1.png")}
+              />
+            ),
+          }}
+        />
       ) : null}
       {screenName === "Search" ? (
         <Stack.Screen name={"Search"} component={Search} />
@@ -35,6 +51,8 @@ export default function StackNavFactory({ screenName }) {
 
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Photo" component={Photo} />
+      <Stack.Screen name="Likes" component={Likes} />
+      <Stack.Screen name="Comments" component={Comments} />
     </Stack.Navigator>
   );
 }
